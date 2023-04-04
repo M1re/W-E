@@ -1,6 +1,8 @@
 ﻿using ECommerce.Data;
 using ECommerce.Data.Services;
+using ECommerce.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.WebSockets;
 
 namespace ECommerce.Controllers
 {
@@ -15,8 +17,67 @@ namespace ECommerce.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
             return View(await _service.GetAll());
+        }
+        
+        
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Picture,Name,Type,Description,Price")]Lot lot)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(lot);
+            }
+            await _service.Add(lot);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var lotDetails = await _service.GetById(id);
+
+            if (lotDetails == null) return View("NotFound");
+            return View(lotDetails);
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var lotDetails = await _service.GetById(id);
+            if (lotDetails == null) return View("NotFound");
+            return View(lotDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Picture,Name,Type,Description,Price")] Lot lot)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(lot);
+            }
+            await _service.Update(lot, id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var lotDetails = await _service.GetById(id);
+            if (lotDetails == null) return View("NotFound");
+            return View(lotDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var lotDetails = await _service.GetById(id);
+            if (lotDetails == null) return View("NotFound");
+
+            await _service.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
