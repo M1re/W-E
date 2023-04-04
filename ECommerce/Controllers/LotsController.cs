@@ -20,7 +20,18 @@ namespace ECommerce.Controllers
             return View(await _service.GetAll());
         }
         
-        
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allLots = await _service.GetAll();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = allLots.Where(n => n.Name.Contains(searchString) || n.Description.Contains(searchString)).ToList();
+                return View("Index", filteredResult);
+            }
+            return View("Index", allLots);
+        }
+
         public async Task<IActionResult> Create()
         {
             return View();
