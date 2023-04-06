@@ -26,8 +26,7 @@ namespace ECommerce.Data.Base
 
         public async Task<IEnumerable<T>> GetAll() => await _context.Set<T>().ToListAsync();
 
-        public async Task<T> GetById(int id)
-        => await _context.Set<T>().FirstOrDefaultAsync(l => l.Id == id);
+        public async Task<T> GetById(int id) => await _context.Set<T>().FirstOrDefaultAsync(l => l.Id == id);
 
         public async Task Update(T entity, int id)
         {
