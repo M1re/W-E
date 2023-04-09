@@ -1,6 +1,9 @@
 using ECommerce.Data;
 using ECommerce.Data.Cart;
 using ECommerce.Data.Services;
+using ECommerce.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +20,15 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer
 
 builder.Services.AddScoped<ILotsService,LotService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
+//Authentication and authorization
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+});
+
 
 var app = builder.Build();
 
@@ -36,6 +48,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
+//Authentication & Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -43,5 +57,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 AppDbInitializer.Seed(app);
+AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 
 app.Run();
