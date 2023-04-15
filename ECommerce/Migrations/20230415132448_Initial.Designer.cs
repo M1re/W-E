@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230407153523_Identity")]
-    partial class Identity
+    [Migration("20230415132448_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,9 +146,11 @@ namespace ECommerce.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -173,16 +175,11 @@ namespace ECommerce.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LotId");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("OrderItems");
                 });
@@ -345,6 +342,17 @@ namespace ECommerce.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ECommerce.Models.Order", b =>
+                {
+                    b.HasOne("ECommerce.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ECommerce.Models.OrderItem", b =>
                 {
                     b.HasOne("ECommerce.Models.Lot", "Lot")
@@ -354,14 +362,10 @@ namespace ECommerce.Migrations
                         .IsRequired();
 
                     b.HasOne("ECommerce.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ECommerce.Models.Order", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Lot");
 

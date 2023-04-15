@@ -13,9 +13,8 @@ namespace ECommerce.Data.Services
 
         public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
         {
-            var orders = await _context.Orders
-                .Include(n => n.OrderItems)
-                .ThenInclude(n => n.Lot).Include(n => n.UserId).ToListAsync();
+            //error
+            var orders = await _context.Orders.Include(n => n.OrderItems).ThenInclude(n => n.Lot).Include(n => n.User).ToListAsync();
 
             if (userRole != "Admin")
             {

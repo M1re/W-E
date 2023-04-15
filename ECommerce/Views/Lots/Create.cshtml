@@ -13,9 +13,9 @@
             <div class="col-md-8 offset-2">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                     <div class="form-group text-center">
-                    <img class="border-info rounded-circle" style="max-width: 150px" id="PicturePreview"/>
-                </div>
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="PicturePreview" />
+                    </div>
                 <div class="form-group">
                     <label asp-for="Picture" class="control-label"></label>
                     <input asp-for="Picture" class="form-control"/>
@@ -56,7 +56,7 @@
     <script>
         $(document).ready(function (){
             var output = document.getElementById('PicturePreview')
-            output.src = $("Picture").val();
+            output.src = $("#Picture").val();
         })
 
         $("#Picture").on("change", function(){
