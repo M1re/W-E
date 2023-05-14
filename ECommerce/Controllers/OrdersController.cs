@@ -49,9 +49,11 @@ namespace ECommerce.Controllers
             var item = await _lotsService.GetById(id);
 
             if (item != null)
-            {    //error
+            {
+                //error
                 _shoppingCart.AddItemToCart(item);
             }
+
             return RedirectToAction(nameof(ShoppingCart));
         }
 
@@ -63,10 +65,11 @@ namespace ECommerce.Controllers
             {
                 _shoppingCart.RemoveItemFromCart(item);
             }
+
             return RedirectToAction(nameof(ShoppingCart));
         }
 
-        public async Task<IActionResult> CompleteOrder()
+        public async Task<IActionResult> CompleteOrders()
         {
             var items = _shoppingCart.GetShoppingCartItems();
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -75,6 +78,27 @@ namespace ECommerce.Controllers
             await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
             await _shoppingCart.ClearShoppingCartAsync();
 
+            return View("OrderCompleted");
+        }
+
+        public async Task<IActionResult> CreateItemForExchange(int id)
+        {
+            var item = await _lotsService.GetById(id);
+            if (item != null)
+            { 
+                _shoppingCart.RemoveItemFromCart(item);
+            }
+            return View("OrderCompletedWithExchangeItem");
+        }
+
+        public async Task<IActionResult> CompleteOrder(int id)
+        {
+            var item = await _lotsService.GetById(id);
+
+            if (item != null)
+            {
+                _shoppingCart.RemoveItemFromCart(item);
+            }
             return View("OrderCompleted");
         }
     }

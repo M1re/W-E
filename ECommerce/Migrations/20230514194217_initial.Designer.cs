@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230514160319_wishlistmodel")]
-    partial class wishlistmodel
+    [Migration("20230514194217_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,13 +228,16 @@ namespace ECommerce.Migrations
 
                     b.Property<string>("WishListId")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WishListModelId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LotId");
 
-                    b.HasIndex("WishListId");
+                    b.HasIndex("WishListModelId");
 
                     b.ToTable("WishListItems");
                 });
@@ -443,9 +446,7 @@ namespace ECommerce.Migrations
 
                     b.HasOne("ECommerce.Models.WishListModel", "WishListModel")
                         .WithMany("WishListItems")
-                        .HasForeignKey("WishListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WishListModelId");
 
                     b.Navigation("Lot");
 

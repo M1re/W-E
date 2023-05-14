@@ -42,18 +42,21 @@
                                 <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"></i> Show Details
                                 </a>
-                                <a class="btn btn-success text-white" 
-                                   asp-controller="Orders" 
-                                   asp-action="AddItemToShoppingCart" 
-                                   asp-route-id="@item.Id">
-                                    <i class="bi bi-cart-plus"></i> Create a deal
-                                </a>
-                                <a class="btn btn-success text-white"
-                                   asp-controller="WishList"
-                                   asp-action="AddItemToWishList"
-                                   asp-route-id="@item.Id">
-                                    <i class="bi bi-bookmark-plus-fill"></i> Add to WishList
-                                </a>
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                            {
+                                    <a class="btn btn-success text-white"
+                               asp-controller="Orders"
+                               asp-action="AddItemToShoppingCart"
+                               asp-route-id="@item.Id">
+                                        <i class="bi bi-cart-plus"></i> Create a deal
+                                    </a>
+                                    <a class="btn btn-success text-white"
+                               asp-controller="WishList"
+                               asp-action="AddItemToWishList"
+                               asp-route-id="@item.Id">
+                                        <i class="bi bi-bookmark-plus-fill"></i> Add to WishList
+                                    </a>
+                            }
                             @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                                 {
                                     <a class="btn btn-outline-danger" asp-controller="Lots" asp-action="Delete" asp-route-id="@item.Id">
