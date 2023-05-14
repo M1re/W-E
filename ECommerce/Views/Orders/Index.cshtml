@@ -16,6 +16,9 @@
             <tr>
                 <th>Order ID</th>
                 <th>Items</th>
+                <th>Amount</th>
+                <th>Name</th>
+                <th>DealType</th>
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                 {
                     <th>User</th>
@@ -25,29 +28,27 @@
             <tbody>
             @foreach (var order in Model)
             {
-                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.FindFirstValue(ClaimTypes.NameIdentifier) == order.UserId))
-                {
-                    <tr>
-                        <td class="align-middle">@order.Id</td>
-                        <td class="align-middle">
-                            <ul style="list-style-type:none">
-                                @foreach (var item in order.OrderItems)
-                                {
-                                    <li>
-                                        <div class="alert alert-info" role="alert">
-                                            <span class="align-middle">@item.Lot.Name</span>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        </td>
-                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                <tr>
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.Identity.Name == order.User.UserName))
                         {
-                            <td class="align-middle"> @order.User.FullName </td>
+                            @foreach (var item in order.OrderItems)
+                            {
+                                <td class="align-middle">@order.Id</td>
+                                <td class="align-middle">
+                                    <img src="@item.Lot.Picture" width="20%" alt="@item.Lot.Name">
+                                </td>
+                                <td class="align-middle">@item.Amount</td>
+                                <td class="align-middle">@item.Lot.Name</td>
+                                <td class="align-middle">@item.Lot.DealType</td>
+
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                {
+                                    <td class="align-middle"> @order.User.FullName </td>
+                                }
+                            }
                         }
 
-                    </tr>
-                }
+                </tr>
             }
             </tbody>
         </table>

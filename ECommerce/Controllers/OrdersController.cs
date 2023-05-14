@@ -75,7 +75,7 @@ namespace ECommerce.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
-            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
+            await _ordersService.StoreOrdersAsync(items, userId, userEmailAddress);
             await _shoppingCart.ClearShoppingCartAsync();
 
             return View("OrderCompleted");
@@ -84,6 +84,13 @@ namespace ECommerce.Controllers
         public async Task<IActionResult> CreateItemForExchange(int id)
         {
             var item = await _lotsService.GetById(id);
+
+            var cartItem = _shoppingCart.GetShoppingCartItem(id);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
+
+            await _ordersService.StoreOrderAsync(cartItem, userId, userEmailAddress);
+
             if (item != null)
             { 
                 _shoppingCart.RemoveItemFromCart(item);
@@ -94,6 +101,12 @@ namespace ECommerce.Controllers
         public async Task<IActionResult> CompleteOrder(int id)
         {
             var item = await _lotsService.GetById(id);
+
+            var cartItem = _shoppingCart.GetShoppingCartItem(id);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
+
+            await _ordersService.StoreOrderAsync(cartItem, userId, userEmailAddress);
 
             if (item != null)
             {

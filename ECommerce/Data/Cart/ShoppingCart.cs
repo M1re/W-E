@@ -67,5 +67,11 @@ namespace ECommerce.Data.Cart
             _context.ShoppingCartItems.RemoveRange(items);
             await _context.SaveChangesAsync();
         }
+
+        public ShoppingCartItem GetShoppingCartItem(int lotId)
+        {
+            return _context.ShoppingCartItems
+                .SingleOrDefault(n => n.ShoppingCartId == ShoppingCartId && n.Lot.Id == lotId);
+        }
     }
 }

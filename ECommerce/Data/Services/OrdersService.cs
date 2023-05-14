@@ -13,8 +13,11 @@ namespace ECommerce.Data.Services
 
         public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
         {
-            //error
-            var orders = await _context.Orders.Include(n => n.OrderItems).ThenInclude(n => n.Lot).Include(n => n.User).ToListAsync();
+            var orders = await _context.Orders
+                .Include(n => n.OrderItems)
+                .ThenInclude(n => n.Lot)
+                .Include(n => n.User)
+                .ToListAsync();
 
             if (userRole != "Admin")
             {
@@ -24,7 +27,7 @@ namespace ECommerce.Data.Services
             return orders;
         }
 
-        public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmailAddress)
+        public async Task StoreOrdersAsync(List<ShoppingCartItem> items, string userId, string userEmailAddress)
         {
             var order = new Order()
             {
@@ -46,6 +49,27 @@ namespace ECommerce.Data.Services
                 await _context.OrderItems.AddAsync(orderItem);
             }
             await _context.SaveChangesAsync();
+        }
+        public async Task StoreOrderAsync(ShoppingCartItem item, string userId, string userEmailAddress)
+        {
+            var order = new Order()
+            {
+                UserId = userId,
+                Email = userEmailAddress
+            };
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+                var orderItem = new OrderItem()
+                {
+                    Amount = item.Amount,
+                    LotId = item.Lot.Id,
+                    OrderId = order.Id,
+                    DealType = item.Lot.DealType
+                };
+                await _context.OrderItems.AddAsync(orderItem);
+
+                await _context.SaveChangesAsync();
         }
     }
 }
