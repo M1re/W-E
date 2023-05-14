@@ -26,13 +26,7 @@
             {
                 <tr>
                     <td class="align-middle">@order.Id</td>
-@*                    <td class="align-middle">
-                        @foreach (var item in order.OrderItems)
-                        {
-                            <span class="align-middle">@item.Lot.Name</span>
-                        }
-                    </td>*@
-                        <td class="align-middle">
+                    <td class="align-middle">
                             <ul style="list-style-type:none">
                                 @foreach (var item in order.OrderItems)
                                 {

@@ -13,6 +13,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th>Picture</th>
                 <th>Selected amount</th>
                 <th>Lot</th>
                 <th>Deal Type</th>
@@ -23,6 +24,9 @@
             @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
             {
                 <tr>
+                    <td class="align-middle">
+                        <img src="@item.Lot.Picture" width="20%" alt="@item.Lot.Name">
+                    </td>
                     <td class="align-middle">@item.Amount</td>
                     <td class="align-middle">@item.Lot.Name</td>
                     <td class="align-middle">@item.Lot.DealType<td)>

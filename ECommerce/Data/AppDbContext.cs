@@ -20,5 +20,7 @@ namespace ECommerce.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public DbSet<WishListItem> WishListItems { get; set; }
+        public DbSet<WishListModel> WishListModels{ get; set; }
     }
 }

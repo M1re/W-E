@@ -5,12 +5,14 @@ using ECommerce.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WishList = ECommerce.Data.WishList.WishList;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+builder.Services.AddScoped(wl => WishList.GetWishList(wl));
 builder.Services.AddSession();
 
 builder.Services.AddControllersWithViews();
@@ -20,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer
 
 builder.Services.AddScoped<ILotsService,LotService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddScoped<IWishListService, WishListService>();
 //Authentication and authorization
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddMemoryCache();

@@ -4,6 +4,7 @@ using ECommerce.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230514152038_wishlist")]
+    partial class wishlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,6 +209,26 @@ namespace ECommerce.Migrations
                     b.ToTable("ShoppingCartItems");
                 });
 
+            modelBuilder.Entity("ECommerce.Models.WishList", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WishLists");
+                });
+
             modelBuilder.Entity("ECommerce.Models.WishListItem", b =>
                 {
                     b.Property<int>("Id")
@@ -225,38 +248,15 @@ namespace ECommerce.Migrations
 
                     b.Property<string>("WishListId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WishListModelId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LotId");
 
-                    b.HasIndex("WishListModelId");
+                    b.HasIndex("WishListId");
 
                     b.ToTable("WishListItems");
-                });
-
-            modelBuilder.Entity("ECommerce.Models.WishListModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("WishListModels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -433,24 +433,7 @@ namespace ECommerce.Migrations
                     b.Navigation("Lot");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.WishListItem", b =>
-                {
-                    b.HasOne("ECommerce.Models.Lot", "Lot")
-                        .WithMany()
-                        .HasForeignKey("LotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ECommerce.Models.WishListModel", "WishListModel")
-                        .WithMany("WishListItems")
-                        .HasForeignKey("WishListModelId");
-
-                    b.Navigation("Lot");
-
-                    b.Navigation("WishListModel");
-                });
-
-            modelBuilder.Entity("ECommerce.Models.WishListModel", b =>
+            modelBuilder.Entity("ECommerce.Models.WishList", b =>
                 {
                     b.HasOne("ECommerce.Models.ApplicationUser", "User")
                         .WithMany()
@@ -459,6 +442,25 @@ namespace ECommerce.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ECommerce.Models.WishListItem", b =>
+                {
+                    b.HasOne("ECommerce.Models.Lot", "Lot")
+                        .WithMany()
+                        .HasForeignKey("LotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECommerce.Models.WishList", "WishList")
+                        .WithMany("WishListItems")
+                        .HasForeignKey("WishListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lot");
+
+                    b.Navigation("WishList");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -517,7 +519,7 @@ namespace ECommerce.Migrations
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("ECommerce.Models.WishListModel", b =>
+            modelBuilder.Entity("ECommerce.Models.WishList", b =>
                 {
                     b.Navigation("WishListItems");
                 });

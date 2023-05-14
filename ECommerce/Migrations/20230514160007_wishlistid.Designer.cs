@@ -4,6 +4,7 @@ using ECommerce.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230514160007_wishlistid")]
+    partial class wishlistid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,16 +228,13 @@ namespace ECommerce.Migrations
 
                     b.Property<string>("WishListId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WishListModelId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LotId");
 
-                    b.HasIndex("WishListModelId");
+                    b.HasIndex("WishListId");
 
                     b.ToTable("WishListItems");
                 });
@@ -256,7 +256,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WishListModels");
+                    b.ToTable("WishLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -441,13 +441,15 @@ namespace ECommerce.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommerce.Models.WishListModel", "WishListModel")
+                    b.HasOne("ECommerce.Models.WishListModel", "WishList")
                         .WithMany("WishListItems")
-                        .HasForeignKey("WishListModelId");
+                        .HasForeignKey("WishListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Lot");
 
-                    b.Navigation("WishListModel");
+                    b.Navigation("WishList");
                 });
 
             modelBuilder.Entity("ECommerce.Models.WishListModel", b =>

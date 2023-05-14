@@ -43,6 +43,11 @@
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
 
+                    <span style="padding: 5px;"></span>
+                    <ul class="navbar-nav">
+                        @await Component.InvokeAsync("WishListVC")
+                    </ul>
+
                     <partial name="_Identity.cshtml" />
                 </div>
             </div>
