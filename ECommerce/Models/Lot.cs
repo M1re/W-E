@@ -26,9 +26,9 @@ namespace ECommerce.Models
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set;}
 
-        [Display(Name = "Price")]
-        [Required(ErrorMessage = "Price is required")]
-        public int Price { get; set; }
+        [Display(Name = "Deal Type")]
+        [Required(ErrorMessage = "Deal Type is required")]
+        public DealType DealType { get; set; }
 
         [Display(Name = "Status")]
         public bool Status { get; set; }

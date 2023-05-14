@@ -38,8 +38,7 @@ namespace ECommerce.Controllers
 
             var response = new ShoppingCartViewModel()
             {
-                ShoppingCart = _shoppingCart,
-                ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
+                ShoppingCart = _shoppingCart
             };
 
             return View(response);

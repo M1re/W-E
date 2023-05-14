@@ -36,7 +36,7 @@ namespace ECommerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Picture,Name,Type,Description,Price")]Lot lot)
+        public async Task<IActionResult> Create([Bind("Picture,Name,Type,Description,DealType")]Lot lot)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace ECommerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Picture,Name,Type,Description,Price")] Lot lot)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Picture,Name,Type,Description,DealType")] Lot lot)
         {
             if (!ModelState.IsValid)
             {

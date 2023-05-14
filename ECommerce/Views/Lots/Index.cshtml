@@ -31,7 +31,7 @@
                         <p class="card-text">@item.Description</p>
                         <p class="card-text"><b>Name: </b>@item.Name</p>
                         <p class="card-text"><b>Category: </b>@item.Type</p>
-                            <p class="card-text"><b>Price: </b>@item.Price</p>
+                            <p class="card-text"><b>Deal Type: </b>@item.DealType</p>
                             <p class="card-text"><b>PublishDate: </b>@item.PublishDate</p>
                             <p class="card-text ">
                         </div>
@@ -46,7 +46,7 @@
                                    asp-controller="Orders" 
                                    asp-action="AddItemToShoppingCart" 
                                    asp-route-id="@item.Id">
-                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                    <i class="bi bi-cart-plus"></i> Create a deal
                                 </a>
                             @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                                 {

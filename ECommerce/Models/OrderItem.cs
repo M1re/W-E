@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using ECommerce.Data.Enums;
 
 namespace ECommerce.Models
 {
@@ -9,7 +10,7 @@ namespace ECommerce.Models
         public int Id { get; set; }
 
         public int Amount { get; set; }
-        public double Price { get; set; }
+        public DealType DealType { get; set; }
 
         public int LotId { get; set; }
         [ForeignKey("LotId")]

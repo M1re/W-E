@@ -23,8 +23,8 @@ namespace ECommerce.Data
                             Picture = "https://www.sony-mea.com/image/f1231591e8a1e2fe4e5b6ad229a756c9?fmt=pjpeg&wid=1014&hei=396&bgcolor=F1F5F9&bgc=F1F5F9",
                             Name = "TV",
                             Type = LotType.Appliances,
-                            Description = "A default Sasung TV",
-                            Price = 1000,
+                            Description = "A default Samsung TV",
+                            DealType = DealType.Chargeless,
                             PublishDate = DateTime.Today
 
                         },
@@ -34,25 +34,79 @@ namespace ECommerce.Data
                             Name = "Bear",
                             Type = LotType.Toys,
                             Description = "A default flushy bear",
-                            Price = 10,
+                            DealType = DealType.Chargeless,
                             PublishDate = DateTime.Today
                         },
                         new Lot()
                         {
-                            Picture = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fassets.vogue.com%2Fphotos%2F6303e996be0e9b0e8c9fc4d9%2F3%3A4%2Fw_1280%252Cc_limit%2Fslide_17.jpg&imgrefurl=https%3A%2F%2Fwww.vogue.com%2Farticle%2Fbest-jeans-for-women&tbnid=pSu9j0ZBBkBZpM&vet=12ahUKEwjd186Kms_9AhVDmIsKHRgcDowQMygAegUIARC4Ag..i&docid=F4JSxQkZitXHiM&w=1280&h=1707&q=jeans&ved=2ahUKEwjd186Kms_9AhVDmIsKHRgcDowQMygAegUIARC4Ag",
+                            Picture = "https://images.only.com/15171549/2985752/001/only-onlemilyhwstcranmae05noos-blaa.jpg?v=92886bb83f72bd3d90e5759b3db70cc6&format=webp&rsampler=catmull&width=1024&quality=90",
                             Name = "Jeans",
                             Type = LotType.Clothing,
                             Description = "A white baggy Jeans",
-                            Price = 1000,
+                            DealType = DealType.Exchange,
                             PublishDate = DateTime.Today
                         },
                         new Lot()
                         {
-                            Picture = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fdi-uploads-pod7.s3.amazonaws.com%2Fmercedesbenzofcharlottesville%2Fuploads%2F2019%2F01%2FMercedes-Benz-of-Charlottesville-Parts-FAQ.jpg&imgrefurl=https%3A%2F%2Fwww.mbofcharlottesville.com%2Fauto-parts-questions%2F&tbnid=865RD_lEdGUugM&vet=12ahUKEwiY5KuSms_9AhXIuSoKHT6sDEIQMygUegUIARDsAQ..i&docid=8ROxFHhDOjgDfM&w=799&h=599&q=car%20parts&ved=2ahUKEwiY5KuSms_9AhXIuSoKHT6sDEIQMygUegUIARDsAQ",
+                            Picture = "https://www.kmulrooneytrucking.com/wp-content/uploads/2022/08/car-inside.jpg",
                             Name = "Car parts",
                             Type = LotType.Rust,
                             Description = "Doors,backseats and other stuff",
-                            Price = 1000,
+                            DealType = DealType.Exchange,
+                            PublishDate = DateTime.Today
+                        },
+                        new Lot()
+                        {
+                            Picture = "https://cdn1.it4profit.com/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/resize:fill:540/bg:f6f6f6/q:100/plain/s3://catalog-products/201111082124821437/201210170018916895.png@webp",
+                            Name = "MacBook",
+                            Type = LotType.Appliances,
+                            Description = "New MacBook",
+                            DealType = DealType.Exchange,
+                            PublishDate = DateTime.Today
+                        },
+                        new Lot()
+                        {
+                            Picture = "https://ilounge.ua/files/products/new-iphone-15.1000x1000.webp",
+                            Name = "Iphone",
+                            Type = LotType.Appliances,
+                            Description = "New Iphone",
+                            DealType = DealType.Exchange,
+                            PublishDate = DateTime.Today
+                        },
+                        new Lot()
+                        {
+                            Picture = "https://hips.hearstapps.com/goodhousekeeping-uk/main/embedded/40137/toybox.jpg",
+                            Name = "Toys",
+                            Type = LotType.Toys,
+                            Description = "Used toys",
+                            DealType = DealType.Exchange,
+                            PublishDate = DateTime.Today
+                        },
+                        new Lot()
+                        {
+                            Picture = "https://www.cnet.com/a/img/resize/b2467510a3fca2c72acfd45504c6d1ebd549349a/hub/2022/09/12/b8e646a6-b39d-430b-ba9e-7cb04384ff1f/amazon-toys-we-love.png?auto=webp&fit=crop&height=900&width=1200",
+                            Name = "Toys",
+                            Type = LotType.Toys,
+                            Description = "Used toys",
+                            DealType = DealType.Chargeless,
+                            PublishDate = DateTime.Today
+                        },
+                        new Lot()
+                        {
+                            Picture = "https://images.vans.com/is/image/VansEU/VN0A3WMAVNE-HERO?$PDP-FULL-IMAGE$",
+                            Name = "Shoes",
+                            Type = LotType.Clothing,
+                            Description = "New shoes",
+                            DealType = DealType.Chargeless,
+                            PublishDate = DateTime.Today
+                        },
+                        new Lot()
+                        {
+                            Picture = "https://www.thespruce.com/thmb/tTOSB7tJHim06W0c6gYggLW31cY=/6623x0/filters:no_upscale():max_bytes(150000):strip_icc()/tips-to-make-clothes-last-longer-2146476-hero-baa47cec8e714b0e80f181da2f7d8dd0.jpg",
+                            Name = "Clothes",
+                            Type = LotType.Clothing,
+                            Description = "New dresses",
+                            DealType = DealType.Chargeless,
                             PublishDate = DateTime.Today
                         }
                     });

@@ -41,7 +41,7 @@ namespace ECommerce.Data.Services
                     Amount = item.Amount,
                     LotId = item.Lot.Id,
                     OrderId = order.Id,
-                    Price = item.Lot.Price
+                    DealType = item.Lot.DealType
                 };
                 await _context.OrderItems.AddAsync(orderItem);
             }

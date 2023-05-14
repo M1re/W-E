@@ -72,8 +72,6 @@ namespace ECommerce.Data.Cart
             return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Lot).ToList());
         }
 
-        public double GetShoppingCartTotal() => _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Lot.Price * n.Amount).Sum();
-
         public async Task ClearShoppingCartAsync()
         {
             var items = await _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToListAsync();
